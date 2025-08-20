@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blackjack Trainer — Basic Strategy & Card Counting</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>🂡 Blackjack Trainer</h1>
+    <nav>
+      <button class="tab-btn active" data-tab="strategy">Basic Strategy</button>
+      <button class="tab-btn" data-tab="counting">Card Counting</button>
+      <button class="tab-btn" data-tab="progress">Progress</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- BASIC STRATEGY TRAINER -->
+    <section id="strategy" class="tab active">
+      <div class="card">
+        <h2>Basic Strategy Drill</h2>
+        <div class="grid two">
+          <div>
+            <div id="strategy-table" class="deal-area">
+              <div class="hand-block">
+                <h3>Your Hand</h3>
+                <div id="player-cards" class="cards"></div>
+                <div class="hand-totals">
+                  <span id="player-total">Total: —</span>
+                  <span id="hand-type">—</span>
+                </div>
+              </div>
+              <div class="hand-block">
+                <h3>Dealer Upcard</h3>
+                <div id="dealer-card" class="cards"></div>
+              </div>
+            </div>
+            <div class="actions">
+              <button id="btn-hit">Hit</button>
+              <button id="btn-stand">Stand</button>
+              <button id="btn-double">Double</button>
+              <button id="btn-split">Split</button>
+              <button id="btn-surrender">Surrender</button>
+            </div>
+          </div>
+          <div>
+            <div class="stats">
+              <div><strong>Hands:</strong> <span id="s_hands">0</span></div>
+              <div><strong>Correct:</strong> <span id="s_correct">0</span></div>
+              <div><strong>Accuracy:</strong> <span id="s_accuracy">0%</span></div>
+              <div><strong>Streak:</strong> <span id="s_streak">0</span></div>
+            </div>
+            <div id="feedback" class="feedback"></div>
+            <div class="row">
+              <button id="btn-next" class="primary">Deal Next</button>
+              <button id="btn-show-why">Why?</button>
+              <button id="btn-peek-table">Show Table</button>
+            </div>
+            <details id="explain" class="explain">
+              <summary>Explanation</summary>
+              <div id="explain-body">—</div>
+            </details>
+            <details id="chart" class="explain">
+              <summary>Reference Chart (derived)</summary>
+              <div id="chart-body"></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUNTING TRAINER -->
+    <section id="counting" class="tab">
+      <div class="card">
+        <h2>Card Counting Drill (Hi‑Lo)</h2>
+        <div class="grid two">
+          <div>
+            <div class="deal-area">
+              <div id="stream" class="stream"></div>
+              <div class="row">
+                <button id="btn-start-stream" class="primary">Start Stream</button>
+                <button id="btn-stop-stream">Stop</button>
+                <label class="inline">
+                  Speed (ms): <input id="count-speed" type="number" min="200" step="100" value="700"/>
+                </label>
+                <label class="inline">
+                  Decks: <input id="count-decks" type="number" min="1" max="8" value="6"/>
+                </label>
+              </div>
+              <div class="row">
+                <div><strong>Running Count:</strong> <span id="running-count">0</span></div>
+                <div><strong>Decks Remaining:</strong> <span id="decks-remaining">—</span></div>
+                <div><strong>True Count:</strong> <span id="true-count">—</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <h3>Flash Test</h3>
+              <p>We’ll flash 4–12 cards briefly. Tell us the final running count.</p>
+              <div class="row">
+                <button id="btn-flash" class="primary">Run Flash Test</button>
+                <label class="inline">Cards:
+                  <input id="flash-cards" type="number" min="4" max="20" value="8"/>
+                </label>
+                <label class="inline">Flash (ms):
+                  <input id="flash-speed" type="number" min="150" step="50" value="450"/>
+                </label>
+              </div>
+              <div id="flash-area" class="flash-area"></div>
+              <div class="row">
+                <label class="inline">Your Count:
+                  <input id="flash-input" type="number" step="1" />
+                </label>
+                <button id="btn-check-flash">Check</button>
+              </div>
+              <div id="flash-feedback" class="feedback"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section id="progress" class="tab">
+      <div class="card">
+        <h2>Progress</h2>
+        <div class="grid two">
+          <div>
+            <ul>
+              <li>Total Hands Answered: <strong id="p_total">0</strong></li>
+              <li>Overall Accuracy: <strong id="p_accuracy">0%</strong></li>
+              <li>Longest Streak: <strong id="p_beststreak">0</strong></li>
+              <li>Counting Flash Best: <strong id="p_flashbest">0 cards correct</strong></li>
+            </ul>
+          </div>
+          <div>
+            <button id="btn-reset-progress">Reset Progress</button>
+            <p class="muted">Progress is stored locally in your browser.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="settings" class="tab">
+      <div class="card">
+        <h2>Game & Rule Settings</h2>
+        <div class="grid two">
+          <div class="settings-grid">
+            <label>Decks
+              <input id="opt-decks" type="number" min="1" max="8" value="6"/>
+            </label>
+            <label>Dealer on Soft 17
+              <select id="opt-s17">
+                <option value="S17" selected>Stand (S17)</option>
+                <option value="H17">Hit (H17)</option>
+              </select>
+            </label>
+            <label>Double After Split (DAS)
+              <select id="opt-das">
+                <option value="true" selected>Allowed</option>
+                <option value="false">Not allowed</option>
+              </select>
+            </label>
+            <label>Late Surrender
+              <select id="opt-ls">
+                <option value="true" selected>Allowed</option>
+                <option value="false">Not allowed</option>
+              </select>
+            </label>
+            <label>Peek for Blackjack (10/A upcard)
+              <select id="opt-peek">
+                <option value="true" selected>Yes</option>
+                <option value="false">No</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <p class="muted">Advice rules follow widely accepted multi-deck basic strategy with options for S17/H17, DAS, and Late Surrender. Counting system is Hi‑Lo (2–6 = +1, 7–9 = 0, 10/A = −1). Charts are generated from the rules you pick.</p>
+            <button id="btn-save-settings" class="primary">Save Settings</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Monetization (Optional)</h2>
+        <p class="muted">This section is a placeholder for freemium gating (e.g., lock <em>Flash Test</em> speed below 300ms to “Pro”). Integrate Stripe, RevenueCat, or Play/App Store billing here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Blackjack Trainer. For education only. Not affiliated with any casino.</p>
+  </footer>
+
+  <script src="strategyTables.js"></script>
+  <script src="counting.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

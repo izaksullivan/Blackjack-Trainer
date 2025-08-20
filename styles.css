@@ -1,0 +1,29 @@
+*{box-sizing:border-box}html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji';background:#0e0f13;color:#e8ebf0}
+header{position:sticky;top:0;background:#11131a;border-bottom:1px solid #232631;z-index:10}
+header h1{margin:0;padding:16px;font-size:22px}
+nav{display:flex;gap:8px;padding:0 16px 16px 16px;flex-wrap:wrap}
+.tab-btn{background:#191c24;color:#cfd6e6;border:1px solid #2a2f3d;border-radius:8px;padding:10px 14px;cursor:pointer}
+.tab-btn.active{border-color:#4b6bff;box-shadow:0 0 0 2px rgba(75,107,255,.2) inset}
+main{max-width:1100px;margin:24px auto;padding:0 16px}
+.card{background:#11131a;border:1px solid #232631;border-radius:12px;padding:16px;margin-bottom:16px}
+.grid.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid.two > div{min-width:0}
+.deal-area{background:#0b0c10;border:1px solid #1a1f2e;border-radius:12px;padding:12px;margin-bottom:12px}
+.hand-block{margin-bottom:10px}
+.cards{display:flex;gap:8px;min-height:60px;align-items:center}
+.card-ux{width:56px;height:76px;border-radius:8px;border:1px solid #3a3f53;display:flex;align-items:center;justify-content:center;background:#151826;font-weight:700}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{background:#1b2233;color:#e8ebf0;border:1px solid #2f364a;border-radius:8px;padding:10px 14px;cursor:pointer}
+button.primary{background:#3b63ff;border-color:#4b6bff;color:white}
+button:disabled{opacity:.5;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px;background:#0b0c10;border:1px solid #1a1f2e;border-radius:8px;margin-bottom:12px}
+.feedback{min-height:24px;padding:8px;border-radius:8px;background:#0b0c10;border:1px dashed #2a2f3d;margin-top:8px;white-space:pre-line}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
+.muted{color:#9aa3b2}
+.inline{display:flex;gap:6px;align-items:center}
+.explain{margin-top:8px}
+.stream{display:flex;flex-wrap:wrap;gap:6px;min-height:84px;padding:8px;background:#0b0c10;border:1px solid #1a1f2e;border-radius:12px}
+.flash-area{display:flex;gap:8px;min-height:84px;align-items:center;padding:8px;background:#0b0c10;border:1px solid #1a1f2e;border-radius:12px}
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+footer{max-width:1100px;margin:24px auto 60px;padding:0 16px;color:#9aa3b2}
+@media (max-width: 820px){.grid.two{grid-template-columns:1fr}}
